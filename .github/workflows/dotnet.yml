@@ -22,4 +22,4 @@ jobs:
     - name: Build 
       run: dotnet build ./apis/poi/web --no-restore
     - name: Test
-      run: dotnet test ./apis/poi/Tests/UnitTests --no-build --verbosity normal
+      run: dotnet test ./apis/poi/Tests/UnitTests/UnitTests.csproj --no-build --verbosity normal
