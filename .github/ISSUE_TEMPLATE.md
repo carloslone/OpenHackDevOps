@@ -1,7 +1,7 @@
 ---
 title: Hubo Un Error en el Build
-assignees: {{ payload.sender.login }}
+assignees: carloslone
 labels: bug, enhancement
 ---
 
-ocurrio un error en el build ...
+ocurrio un error en el build ... {{ payload.sender.login }}
