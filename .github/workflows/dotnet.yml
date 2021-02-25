@@ -19,7 +19,7 @@ jobs:
         dotnet-version: 2.1.x
     - name: Restore dependencies
       run: dotnet restore
-    - name: Build
-      run: dotnet build --no-restore
+    - name: Build 
+      run: dotnet build /apis/poi/web --no-restore
     - name: Test
-      run: dotnet test --no-build --verbosity normal
+      run: dotnet test /apis/poi/Tests/UnitTests --no-build --verbosity normal
