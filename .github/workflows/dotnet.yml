@@ -33,10 +33,8 @@ jobs:
       run: dotnet test ./apis/poi/tests/UnitTests/UnitTests.csproj --no-build --verbosity normal
       
     - name: build failed
-      uses: JasonEtco/create-an-issue@v2
       if: ${{ failure() }}
+      uses: JasonEtco/create-an-issue@v2
       id: create-issue
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    - run: 'echo Created issue number ${{ steps.create-issue.outputs.number }}'
-    - run: 'echo Created ${{ steps.create-issue.outputs.url }}'
