@@ -20,6 +20,6 @@ jobs:
     - name: Restore dependencies
       run: dotnet restore ./apis/poi/web/poi.csproj
     - name: Build 
-      run: dotnet build /apis/poi/web --no-restore
+      run: dotnet build ./apis/poi/web --no-restore
     - name: Test
-      run: dotnet test /apis/poi/Tests/UnitTests --no-build --verbosity normal
+      run: dotnet test ./apis/poi/Tests/UnitTests --no-build --verbosity normal
