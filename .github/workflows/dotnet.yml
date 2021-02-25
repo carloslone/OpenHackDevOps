@@ -2,9 +2,13 @@ name: .NET
 
 on:
   push:
-    branches: [ API-POI ]
+    branches: [ master ]
+    paths:
+      - 'api/poi/**'
   pull_request:
-    branches: [ API-POI ]
+    branches: [ master ]
+    paths:
+      - 'api/poi/**'
 
 jobs:
   build:
