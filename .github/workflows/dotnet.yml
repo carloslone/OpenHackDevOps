@@ -18,7 +18,7 @@ jobs:
       with:
         dotnet-version: 2.1.x
     - name: Restore dependencies
-      run: dotnet restore
+      run: dotnet restore /apis/poi/web
     - name: Build 
       run: dotnet build /apis/poi/web --no-restore
     - name: Test
