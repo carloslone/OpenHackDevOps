@@ -17,7 +17,6 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    - uses: JasonEtco/create-an-issue@v2
     - name: Setup .NET
       uses: actions/setup-dotnet@v1
       with:
@@ -34,6 +33,7 @@ jobs:
       run: dotnet test ./apis/poi/tests/UnitTests/UnitTests.csproj --no-build --verbosity normal
       
     - name: build failed
+    - uses: JasonEtco/create-an-issue@v2
       if: ${{ failure() }}
       id: create-issue
     - run: 'echo Created issue number ${{ steps.create-issue.outputs.number }}'
