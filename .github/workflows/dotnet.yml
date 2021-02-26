@@ -11,8 +11,38 @@ on:
       - 'apis/poi/**'
 
 jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 2.1.x
+    - name: Restore dependencies
+      run: dotnet restore ./apis/poi/web/poi.csproj
+    - name: Restore dependencies test
+      run: dotnet restore ./apis/poi/tests/UnitTests/UnitTests.csproj
+    - name: Build 
+      run: dotnet build ./apis/poi/web --no-restore
+    - name: build test  
+      run: dotnet build ./apis/poi/tests/UnitTests --no-restore
+    - name: Test
+      run: dotnet test ./apis/poi/tests/UnitTests/UnitTests.csproj --no-build --verbosity normal
+      
+    - name: build failed
+      uses: JasonEtco/create-an-issue@v2
+      if: ${{ failure() }}
+      id: create-issue
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         
-  dockerimage:     
+        
+  dockerimage:
+      if: github.ref == refs/heads/master
       runs-on: ubuntu-latest
       steps:
         - name: ACR build
