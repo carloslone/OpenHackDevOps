@@ -11,30 +11,24 @@ on:
       - 'apis/poi/**'
 
 jobs:
-  build:
-
-    runs-on: ubuntu-latest
-
-    steps:
-    - uses: actions/checkout@v2
-    - name: Setup .NET
-      uses: actions/setup-dotnet@v1
-      with:
-        dotnet-version: 2.1.x
-    - name: Restore dependencies
-      run: dotnet restore ./apis/poi/web/poi.csproj
-    - name: Restore dependencies test
-      run: dotnet restore ./apis/poi/tests/UnitTests/UnitTests.csproj
-    - name: Build 
-      run: dotnet build ./apis/poi/web --no-restore
-    - name: build test  
-      run: dotnet build ./apis/poi/tests/UnitTests --no-restore
-    - name: Test
-      run: dotnet test ./apis/poi/tests/UnitTests/UnitTests.csproj --no-build --verbosity normal
+        
+  dockerimage:     
+      runs-on: ubuntu-latest
+      steps:
+        - name: ACR build
+          id: acr
+          uses: ams0/acr-task-github-action@v2
+          with:
+            service_principal: ${{ secrets.service_principal }}
+            service_principal_password: ${{ secrets.service_principal_password }}
+            tenant: ${{ secrets.tenant }}
+            registry: ${{ secrets.registry }}
+            repository: ${{ secrets.repository }}
+#            image: poi
+#            git_access_token: ${{ secrets.git_access_token }}
+            folder: apis/poi/web
+            dockerfile: Dockerfile
       
-    - name: build failed
-      uses: JasonEtco/create-an-issue@v2
-      if: ${{ failure() }}
-      id: create-issue
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      
+  
+  
